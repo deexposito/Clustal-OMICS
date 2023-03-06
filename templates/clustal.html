@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Webpage Title -->
+    <title>Clustal-OMICS</title>
+    
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/fontawesome-all.css" rel="stylesheet">
+	<link href="static/css/styles.css" rel="stylesheet">
+	
+	<!-- Favicon  -->
+    <link rel="icon" href="static/images/denis.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            
+            <!-- Text Logo -->
+            <a class="navbar-brand logo-text page-scroll" >Denis Exposito Navarro</a>
+
+            <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ml-auto">
+                    <a class="navbar-brand logo-text page-scroll">Clustal-OMICS</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="ex-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    <h1>Clustal-OMICS: A Clustal Omega executable</h1>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </header> <!-- end of ex-header -->
+    <!-- end of header -->
+
+
+    <!-- Basic -->
+    <div class="ex-basic-1 pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-fluid mt-5 mb-3" src="static/images/Clustal-omics.jpg" alt="alternative">
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of ex-basic-1 -->
+    <!-- end of basic -->
+
+
+    <!-- Basic -->
+    <div class="ex-basic-1 pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    <p>Clustal-Omega is a powerful tool for multiple sequence alignment, helping you align sequences of DNA, RNA, and protein. With the Clustal-OMICS web application, the process is made even easier.</p>
+                    <p>You can input your data in a variety of ways, including fasta sequences, Uniprot IDs, or a fasta file. With just a few clicks, you'll be able to run Clustal-Omega and visualize the aligned sequences in your desired format.</p>
+                    <p>Clustal-OMICS has been developed to save you time and effort. Instead of having to download and install the software or run the program from the command line, you can simply upload your data and get results instantly.</p>
+                    <p class="mb-4">Additionally, Clustal-OMICS is user-friendly and accessible, even for those without prior experience in bioinformatics. The intuitive interface makes it easy for you to align your sequences without having to worry about complex command line arguments or confusing software settings.</p>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of ex-basic-1 -->
+    <!-- end of basic -->
+
+    <!-- Basic -->
+    <div class="ex-basic-1 pt-3 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    
+                    <h2 class="mb-4">Clustal-OMICS tutorial</h2>
+                    <p> <strong> 1)</strong> Select your input method. You can choose to enter fasta sequences, Uniprot IDs, or upload a fasta file.<br>
+
+                        <p></p><strong>2)</strong> Enter or upload your data as appropriate. If entering fasta sequences, make sure they are formatted correctly.<br>
+                    
+                        <p></p><strong>3)</strong> Once you have inputted your data, you can select the desired output format. Clustal-OMICS supports visualizing the aligned sequences and downloading the results as a file. <br>
+                    
+                        <p></p><strong>4)</strong> Click the "Run Clustal-Omega" button to start the alignment process. <br>
+                    
+                        <p></p><strong>5)</strong> Wait for the results to be generated. This may take a few minutes, depending on the size of your input data. <br>
+                    
+                        <p></p><strong>6)</strong> Once the results are generated, you can visualize the aligned sequences or download the results as a file.<br><br>
+                    
+                    With Clustal-OMICS, aligning sequences has never been easier!</p>
+                    
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of ex-basic-1 -->
+    <!-- end of basic -->
+
+
+    
+    <!-- Clustal form -->
+    
+    <div id="contact" class="form-1 bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Multiple sequence alignment</h2>
+                    <p class="p-small">*Please fill one of the options from below and choose your desired format</p><br>
+                </div> 
+            </div> 
+            <div class="row">
+                <div class="col-lg-12">
+                    <form id="contactForm" action="{{ url_for('run_clustalo') }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="fasta_sequences" style="font-weight:bold;">Fasta sequences:</label><br><br>
+                            <textarea id="fasta_sequences" name="fasta_sequences" class="form-control" rows="5"></textarea><br><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="uniprot" style="font-weight:bold;">Uniprot IDs:</label><br><br>
+                            <textarea id="uniprot" name="uniprotIds" class="form-control" rows="5"></textarea><br><br>
+                        </div>
+                        <div class="form-group">
+                            <label for="file" style="font-weight:bold;">Upload file:</label><br><br>
+                            <input type="file" id="file_upload" name="file_upload" class="form-control"><br>
+                            <button type="button" onclick="clearFileInput()">Clear</button>
+
+                            <script>
+                            function clearFileInput() {
+                                document.getElementById('file_upload').value = null;
+                            }
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label for="format" style="font-weight:bold;">Output format:</label><br><br>
+                            <select id="format" name="output_format" class="form-control">
+                                <option value="fasta">Fasta</option>
+                                <option value="clu">Clustal</option>
+                            </select><br><br>
+                        </div>
+                        <input type="submit" value="Run Clustal-OMICS" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Footer -->
+    <div class="footer bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="social-container">
+                        <span class="fa-stack">
+                            <a href="https://github.com/dexposito98">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="https://www.linkedin.com/in/deexposito/">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-linkedin fa-stack-1x"></i>
+                            </a>
+                        </span>
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+   
+
+
+    <!-- Copyright -->
+    <div class="copyright bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright 2023 © </p>
+                </div> 
+            </div> 
+        </div> 
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Webpage developed by Denis Exposito Navarro</p>
+                </div> 
+            </div> 
+        </div> 
+        
+    </div> 
+
+    
+    	
+    <!-- Scripts -->
+    <script src="static/js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="static/js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="static/js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="static/js/scripts.js"></script> <!-- Custom scripts -->
+</body>
+</html>

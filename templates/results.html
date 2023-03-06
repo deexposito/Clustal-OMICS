@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Clustal Omega Results</title>
+    <style>
+        p {
+            font-family: "Courier New", Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clustal Omega Results</h1>
+    <p style="{{ style|default('') }}">{{ output|safe }}</p>
+    <p>{{ download_link }}</p>
+</body>
+</html>
