@@ -1,5 +1,7 @@
+sys.path.append("/app_repository/app.py")
+
+# Import modules
 import sys, subprocess, os, shutil, requests, datetime, random, string
-sys.path.append("/flask_clustal_omega/app/app.py")
 from flask import Flask, request, render_template, make_response, send_file
 from werkzeug.utils import secure_filename
 from Bio import SeqIO
@@ -9,15 +11,14 @@ app = Flask(__name__)
 app.config["APPLICATION_ROOT"] = "/"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
+# Index page
 @app.route("/")
 def index():
     return render_template("clustal.html")
 
 @app.route("/run_clustalo", methods=["GET","POST"])
 def run_clustalo():
-    print(request.form)
-    if request.method == "GET":
-        return "It used GET", 405
+    print(request.form) # for error testing
     if request.method == "POST":
         input_data, input_type = get_input_data(request)
         output_format = request.form.get("output_format")
@@ -42,7 +43,7 @@ def run_clustalo():
         download_link = f'<a href="/download">Download results</a>'
         return f"{download_link}<br><br>{output}", 200
 
-
+# To download output file
 @app.route("/download")
 def download_output_file():
     try:
@@ -60,7 +61,7 @@ def download_output_file():
     except FileNotFoundError as e:
         return f"Error reading output file: {e}", 500
 
-
+# Get the input data from the form
 def get_input_data(request):
     fasta_sequences = request.form.get("fasta_sequences")
     uniprot_ids = request.form.get("uniprotIds")
@@ -101,7 +102,7 @@ def get_input_data(request):
     else:
         return None, None
 
-
+# Create an input file with the input
 def write_input_to_file(input_data):
     now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     random_string = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
@@ -110,12 +111,14 @@ def write_input_to_file(input_data):
         f.write(input_data)
     return file_name
 
+# Create a output file with the output
 def build_command(input_file_path, output_format):
     now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     random_string = ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
     output_file_name = f"output_{now}_{random_string}.txt"
     return f"clustalo -i {input_file_path} -o {output_file_name} --outfmt={output_format} --force"
 
+# Display output
 def read_output_file():
     try:
         files = os.listdir(".")
