@@ -6,7 +6,7 @@ When submitting the input, the user gets redirected to a results.html page that 
 ## Installation
 1) Clone the repository:<p>
 ```
-git clone https://github.com/dexposito98/Clustal_Omega_WebApplication
+git clone https://github.com/dexposito98/Clustal-OMICS
 ```
 
 2) Install the required packages: <p>
