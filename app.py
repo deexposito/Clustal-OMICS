@@ -1,14 +1,16 @@
-sys.path.append("/app_repository/app.py")
-
 # Import modules
-import sys, subprocess, os, shutil, requests, datetime, random, string
-from flask import Flask, request, render_template, make_response, send_file
+import sys, subprocess, os, requests, datetime, random, string
+from flask import Flask, request, render_template, make_response, send_file, url_for, redirect
 from werkzeug.utils import secure_filename
 from Bio import SeqIO
 from io import StringIO
+from config import config, PREFIX
+
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
-app.config["APPLICATION_ROOT"] = "/"
+app.config.from_object(config['producction'])
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
 # Index page
@@ -137,6 +139,9 @@ def read_output_file():
         return f"Error reading output file: {e}", 500
 
 
+hostedApp = Flask(__name__)
+hostedApp.config.from_object(config['producction'])
+hostedApp.wsgi_app = DispatcherMiddleware(NotFound(), {f"{PREFIX}":app})
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,12 @@
+name: u195257_clustalo
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+    - Flask
+    - Werkzeug
+    - Biopython
+    - requests
+    - clustalo
+    - uwsgi
