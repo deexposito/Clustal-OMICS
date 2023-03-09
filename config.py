@@ -5,7 +5,7 @@ class DevelopmentConfig():
     SECRET_KEY = 'abcabcabcabcabcabc'
 
 class ProducctionConfig():
-    DEBUG=False
+    DEBUG=True
     SECRET_KEY = ''.join(random.choices(string.ascii_letters, k=30))
 
 config = {

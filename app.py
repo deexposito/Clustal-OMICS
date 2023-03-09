@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config.from_object(config['producction'])
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
+
 # Index page
 @app.route("/")
 def index():
@@ -20,7 +21,7 @@ def index():
 
 @app.route("/run_clustalo", methods=["GET","POST"])
 def run_clustalo():
-    print(request.form) # for error testing
+    #print(request.form) # for error testing
     if request.method == "POST":
         input_data, input_type = get_input_data(request)
         output_format = request.form.get("output_format")
@@ -104,6 +105,7 @@ def get_input_data(request):
     else:
         return None, None
 
+########################################################################################
 # Create an input file with the input
 def write_input_to_file(input_data):
     now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -137,11 +139,13 @@ def read_output_file():
 
     except FileNotFoundError as e:
         return f"Error reading output file: {e}", 500
+########################################################################################
 
 
+print(f"prefix {PREFIX}")
 hostedApp = Flask(__name__)
 hostedApp.config.from_object(config['producction'])
 hostedApp.wsgi_app = DispatcherMiddleware(NotFound(), {f"{PREFIX}":app})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    hostedApp.run(debug=True)
